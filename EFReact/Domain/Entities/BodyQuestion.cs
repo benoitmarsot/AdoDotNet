@@ -19,10 +19,5 @@ public class BodyQuestion {
     [JsonIgnore]  //prevent recurssion
     public Assessment? Assessment { get; set; }
 
-    //public BodyQuestion(long bodyQuestionId, float x, float y, List<BodyQuestionText> versionTexts) {
-    //    BodyQuestionId = bodyQuestionId;
-    //    X = x;
-    //    Y = y;
-    //    VersionTexts = versionTexts;
-    //}
+
 }

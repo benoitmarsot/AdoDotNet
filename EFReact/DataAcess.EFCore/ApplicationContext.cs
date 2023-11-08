@@ -51,13 +51,21 @@ public class ApplicationContext : DbContext {
             .WithOne(e => e.Assessment)
             .HasForeignKey(e => e.assessmentid)
             .HasConstraintName("bodyquestion_fk_assessment");
-        //modelBuilder.Entity<BodyQuestion>()
-        //    .HasMany(bq => bq.VersionTexts)
-        //    .WithOne(bqt => bqt.BodyQuestion)
-        //    .HasForeignKey(bqt => bqt.BodyQuestionId)
-        //    .HasConstraintName("bodyquestiontext_fk_assessmentversion");
+        modelBuilder.Entity<Provider>()
+            .HasMany(e => e.Patients)
+            .WithMany(e => e.Providers)
+            .UsingEntity<ProviderPatient>(
+                l => l.HasOne<Patient>()
+                    .WithMany()
+                    .HasForeignKey(e => e.PatientId)
+                    .HasConstraintName("providerpatient_fk_patient"),
+                r => r.HasOne<Provider>()
+                    .WithMany()
+                    .HasForeignKey(e => e.ProviderId)
+                    .HasConstraintName("providerpatient_fk_provider")
+            );
 
-        //.HasPrincipalKey(e=>e.AssessmentId)
+
 
     }
 }

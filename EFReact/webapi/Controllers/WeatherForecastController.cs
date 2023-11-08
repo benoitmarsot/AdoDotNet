@@ -23,12 +23,18 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
-        Provider pr = _context.Providers.FirstOrDefault();
-        Patient p =_context.Patients.FirstOrDefault();
-        ProviderPatient pp = _context.ProviderPatients.FirstOrDefault();
+        Provider pr = _context.Providers
+//            .Include(pr=>pr.Patients)
+            .FirstOrDefault();
+        Patient p =_context.Patients
+            .Include(pa => pa.Providers)
+            .FirstOrDefault();
+
+        //ProviderPatient pp = _context.ProviderPatients.FirstOrDefault();
         Assessment a = _context.Assessments
             .Include(av => av.AssessmentVersions)
             .Include(bq => bq.BodyQuestions)
+            .ThenInclude(av => av.VersionTexts)
             .FirstOrDefault();
         AssessmentVersion avs = _context.AssessmentVersions.FirstOrDefault();
         BodyQuestion bq =_context.BodyQuestions.FirstOrDefault();   

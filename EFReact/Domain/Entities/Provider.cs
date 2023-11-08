@@ -27,19 +27,7 @@ public class Provider {
     public string? Zip { get; set; }
     //public string? email { get; set; }
     //public string? password { get; set; }
+    public ICollection<Patient>? Patients { get; set; }
 
-    //public Provider(long providerId, long rwuserId, List<Patient> patients, string firstName, string lastName, string company, string address, string city, string usState, string zip, string email, string password) {
-    //    ProviderId = providerId;
-    //    RwuserId = rwuserId;
-    //    Patients = patients;
-    //    FirstName = firstName;
-    //    LastName = lastName;
-    //    Company = company;
-    //    Address = address;
-    //    City = city;
-    //    UsState = usState;
-    //    Zip = zip;
-    //    Email = email;
-    //    Password = password;
-    //}
+
 }

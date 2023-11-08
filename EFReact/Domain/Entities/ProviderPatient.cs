@@ -8,8 +8,12 @@ using System.Threading.Tasks;
 namespace Domain.Entities;
 [Table("providerpatient")]
 public class ProviderPatient {
-    [Column("providerid",Order =0)]
-    public int ProviderId { get; set; }
+    [Column("providerid",Order = 0)]
+    public long ProviderId { get; set; }
     [Column("patientid", Order = 1)]
-    public int PatientId { get; set; }
+    public long PatientId { get; set; }
+
+    public Patient? Patient { get; set; } = null;
+
+    public Provider? Provider { get; set; } = null;
 }

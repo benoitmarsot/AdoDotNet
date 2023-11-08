@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Domain.Entities;
 [Table("patient")]
@@ -23,18 +24,8 @@ public class Patient {
     public string? Zip { get; set; }
     [Column("referral", Order = 8)]
     public string? Referral { get; set; }
+    [JsonIgnore]
+    public ICollection<Provider>? Providers { get; set; }
 
-    //public Patient(long patientId, long userId, string firstName, string lastName, string address, string city, string usState, string zip, string referral, string email, string password) {
-    //    PatientId = patientId;
-    //    UserId = userId;
-    //    FirstName = firstName;
-    //    LastName = lastName;
-    //    Address = address;
-    //    City = city;
-    //    UsState = usState;
-    //    Zip = zip;
-    //    Referral = referral;
-    //    Email = email;
-    //    Password = password;
-    //}
+
 }
