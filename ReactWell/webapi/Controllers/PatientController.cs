@@ -13,7 +13,14 @@ public class PatientController : ControllerBase {
     [HttpGet("getpatient")]
     public async Task<ActionResult<Patient>> GetPatient(int patientId) {
         Patient? p = await _patientRep.GetPatient(patientId);
-        return p;
+        return Ok(p);
+    }
+    [HttpPost("updatepatient")]
+    public async Task<ActionResult<int?>> updatePatient(
+        int patientId, Patient patient
+    ) {
+        int? pid=await _patientRep.updatePatient(patientId,patient);  
+        return Ok(pid);
 
     }
 }

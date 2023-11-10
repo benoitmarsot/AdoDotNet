@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 
 builder.Services.Configure<ConnectionSetting>(builder.Configuration.GetSection("ConnectionSetting"));
 builder.Services.AddScoped<IPatientRepository, PatientRepositoryImpl>();
+builder.Services.AddScoped<IProviderRepository, ProviderRepositoryImpl>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

@@ -50,7 +50,7 @@ public class PatientRepositoryImpl : IPatientRepository {
             };
             using var reader = await cmd.ExecuteReaderAsync();
             await reader.ReadAsync();
-            int? pidOut = (int?)reader["updatepatient"];
+            int? pidOut = (int?)reader["pid"];
             return pidOut;
         }
     }

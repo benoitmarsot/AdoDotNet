@@ -1,59 +1,58 @@
-import React, { Component } from 'react';
+import React, { useState, setState, useEffect } from 'react';
+import './App.css';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Home from './pages/index.jsx';
+import About from './pages/about.jsx';
+import CreatePatient from './pages/createPatient.jsx';
+import UpdatePatient from './pages/updatePatient.jsx';
+import Assesment from './pages/assessment.jsx';
+import SelectPatient from './pages/selectPatient.jsx';
+import Profile from './pages/profile.jsx';
+import SignUp from './pages/signup.jsx';
+import SignIn from './pages/signin.jsx';
 
-export default class App extends Component {
-    static displayName = App.name;
-
-    constructor(props) {
-        super(props);
-        this.state = { forecasts: [], loading: true };
+function App() {
+    const [provider, setProvider] = useState(0);
+    const [patient, setPatient] = useState(0);
+    const changePatient=(event) => {
+        if(event) {
+            setPatient(event);
+            console.log("changePatient: ",event);
+        }
     }
-
-    componentDidMount() {
-        this.populateWeatherData();
+    const changeProvider=(event) => {
+        setProvider(event);
+        console.log("changeProvider: ",event);
+        if(event.patients) {
+            //no provider the
+          //   useEffect(() => {
+          //       window.location = '/selectpatient';
+          // }, []);
+        } else {
+          //   useEffect(() => {
+          //        window.location = '/selectpatient';
+          // }, []);
+        }
     }
-
-    static renderForecastsTable(forecasts) {
-        return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {forecasts.map(forecast =>
-                        <tr key={forecast.date}>
-                            <td>{forecast.date}</td>
-                            <td>{forecast.temperatureC}</td>
-                            <td>{forecast.temperatureF}</td>
-                            <td>{forecast.summary}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        );
-    }
-
-    render() {
-        let contents = this.state.loading
-            ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-            : App.renderForecastsTable(this.state.forecasts);
-
-        return (
-            <div>
-                <h1 id="tabelLabel" >Weather forecast</h1>
-                <p>This component demonstrates fetching data from the server.</p>
-                {contents}
-            </div>
-        );
-    }
-
-    async populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        const data = await response.json();
-        this.setState({ forecasts: data, loading: false });
-    }
+    const providerId=(provider)?provider.providerId:0;
+    const patientId=(patient)?patient.patientId:0;
+    return (
+        <Router>
+            <Navbar  patientid={patientId} providerid={providerId} />
+            <Routes>
+                <Route path='/' element={<Home/>} />
+                <Route path='/about' element={<About/>} />
+                <Route path='/createpatient' element={<CreatePatient onChangePatient={changePatient} providerid={providerId} />} />
+                <Route path='/updatepatient' element={<UpdatePatient onChangePatient={changePatient} providerid={providerId} patient={patient} />} />
+                <Route path='/Assesment' element={<Assesment providerid={providerId} patientid={patientId} />} />
+                <Route path='/selectpatient' element={<SelectPatient onChangePatient={changePatient} provider={provider} patientid={patientId} />} />
+                <Route path='/profile' element={<Profile provider={provider} />} />
+                <Route path='/sign-up' element={<SignUp onChangeProvider={changeProvider} />} />
+                <Route path='/signin' element={<SignIn onChangeProvider={changeProvider} />} />
+            </Routes>
+        </Router>
+    );
 }
+
+export default App;

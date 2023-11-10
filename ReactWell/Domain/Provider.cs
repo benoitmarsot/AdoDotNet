@@ -3,7 +3,6 @@
 public class Provider {
     public long? providerId {  get; set; }
     public long? rwuserId { get; set; }
-    public List<Patient>? patients { get; set; }
     public string? firstName { get; set; }
     public string? lastName { get; set; }
     public string? company { get; set; }
@@ -14,5 +13,6 @@ public class Provider {
     public string? email { get; set; }
     public string? password { get; set; }
 
+    public List<Patient>? patients { get; set; }
 
 }
