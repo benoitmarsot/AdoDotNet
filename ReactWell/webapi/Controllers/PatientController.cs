@@ -19,7 +19,7 @@ public class PatientController : ControllerBase {
     public async Task<ActionResult<int?>> updatePatient(
         int patientId, Patient patient
     ) {
-        int? pid=await _patientRep.updatePatient(patientId,patient);  
+        int? pid=await _patientRep.UpdatePatient(patientId,patient);  
         return Ok(pid);
 
     }

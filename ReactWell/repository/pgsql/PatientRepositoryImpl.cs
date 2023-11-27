@@ -37,7 +37,7 @@ public class PatientRepositoryImpl : IPatientRepository {
         }
         return patient;
     }
-    public async Task<int?> updatePatient(int patientId, Patient patient) {
+    public async Task<int?> UpdatePatient(int patientId, Patient patient) {
         string json=JsonSerializer.Serialize(patient);
         using (var connect = new NpgsqlConnection(_connStr.SQLString)) {
             connect.Open();
