@@ -1,4 +1,4 @@
-const devRoot=(window.location.port==="5173")?'http://localhost:8080':'';
+const devRoot=(window.location.port==="5173")?'http://localhost:5155':'';
 
 export default {
     toJSON: function(data) {

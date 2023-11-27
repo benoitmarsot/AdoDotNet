@@ -16,6 +16,16 @@ builder.Services.AddScoped<IProviderRepository, ProviderRepositoryImpl>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var corsOptions = "corsOptions";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: corsOptions,
+                      policy  =>
+                      {
+                          policy.WithOrigins("https://localhost:5173" /*,"https://localhost:5155"*/);
+                          policy.WithMethods(new string[]{"GET","POST","PUT","DELETE"});
+                      });
+});
 
 var app = builder.Build();
 
@@ -29,6 +39,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseCors(corsOptions);
 
 app.MapControllers();
 
