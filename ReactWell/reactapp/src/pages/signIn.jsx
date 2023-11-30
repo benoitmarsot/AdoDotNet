@@ -25,7 +25,7 @@ const SignUp = (props) => {
             console.log(provider);
             onChangeProvider(provider);  
         }, (error) => {
-            setErrorMsg(error.error);
+            setErrorMsg(error.error!==undefined?error.error:error);
         });
     };
     const Error= (props) => {

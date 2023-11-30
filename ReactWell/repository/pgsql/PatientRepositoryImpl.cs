@@ -18,7 +18,7 @@ public class PatientRepositoryImpl : IPatientRepository {
     }
 
     public async Task<Patient?> GetPatient(int patientId) {
-        Patient? patient = null;
+        Patient? patient = null; 
         using (var connect = new NpgsqlConnection(_connStr.SQLString)) {
             connect.Open();
 

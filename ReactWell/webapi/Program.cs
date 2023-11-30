@@ -17,16 +17,17 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var corsOptions = "corsOptions";
+
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: corsOptions,
-                      policy  =>
-                      {
-                          policy.WithOrigins("https://localhost:5173" /*,"https://localhost:5155"*/);
-                          policy.WithMethods(new string[]{"GET","POST","PUT","DELETE"});
-                      });
+    options.AddPolicy(corsOptions,
+        builder =>
+        {
+            builder.WithOrigins("https://localhost:5173")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
 });
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
