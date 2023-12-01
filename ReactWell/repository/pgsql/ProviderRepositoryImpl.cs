@@ -29,7 +29,7 @@ public class ProviderRepositoryImpl : IProviderRepository {
 
             using var reader = await cmd.ExecuteReaderAsync();
             await reader.ReadAsync();
-            string json = (string)reader["getassessment"];
+            string? json = reader["getassessment"] as string;
             if (json != null) {
                 assessment = JsonSerializer.Deserialize<Assessment>(json);
             }
@@ -49,7 +49,7 @@ public class ProviderRepositoryImpl : IProviderRepository {
             };
             using var reader = await cmd.ExecuteReaderAsync();
             await reader.ReadAsync();
-            int? provid = (int?)reader["provid"];
+            int? provid = reader["provid"] as int?;
             return provid;
         }
     }
@@ -69,7 +69,7 @@ public class ProviderRepositoryImpl : IProviderRepository {
             };
             using var reader = await cmd.ExecuteReaderAsync();
             await reader.ReadAsync();
-            int? pid = (int?)reader["pid"];
+            int? pid = reader["pid"] as int?;
             return pid;
         }
     }
@@ -90,7 +90,7 @@ public class ProviderRepositoryImpl : IProviderRepository {
             };
             using var reader = await cmd.ExecuteReaderAsync();
             await reader.ReadAsync();
-            int? pid = (int?)reader["pid"];
+            int? pid = reader["pid"] as int?;
             return pid;
         }
     }
@@ -108,7 +108,7 @@ public class ProviderRepositoryImpl : IProviderRepository {
             using var reader = await cmd.ExecuteReaderAsync();
             await reader.ReadAsync();
             Provider? provider = null;
-            string? jsonOut = (string?)reader["providersignin"];
+            string? jsonOut = reader["providersignin"] as string;
             if (jsonOut != null) {
                 provider = JsonSerializer.Deserialize<Provider>(jsonOut);
             }
@@ -130,7 +130,7 @@ public class ProviderRepositoryImpl : IProviderRepository {
             };
             using var reader = await cmd.ExecuteReaderAsync();
             await reader.ReadAsync();
-            int? provid = (int?)reader["provid"];
+            int? provid = reader["provid"] as int?;
             return provid;
         }
     }

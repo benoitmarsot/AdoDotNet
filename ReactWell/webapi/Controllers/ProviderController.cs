@@ -36,6 +36,9 @@ public class ProviderController : ControllerBase {
         Credential credential
     ) {
         Provider? provider = await _providerRep.Signin(credential);
+        if(provider == null) {
+            return Unauthorized();
+        }
         return Ok(provider);
     }
     [HttpPost("registerpatient")]

@@ -30,7 +30,7 @@ public class PatientRepositoryImpl : IPatientRepository {
 
             using var reader = await cmd.ExecuteReaderAsync();
             await reader.ReadAsync();
-            string json = (string)reader["getpatient"];
+            string? json = reader["getpatient"] as string;
             if (json != null) {
                 patient = JsonSerializer.Deserialize<Patient>(json);
             }
@@ -50,7 +50,7 @@ public class PatientRepositoryImpl : IPatientRepository {
             };
             using var reader = await cmd.ExecuteReaderAsync();
             await reader.ReadAsync();
-            int? pidOut = (int?)reader["pid"];
+            int? pidOut = reader["pid"] as int?;
             return pidOut;
         }
     }
