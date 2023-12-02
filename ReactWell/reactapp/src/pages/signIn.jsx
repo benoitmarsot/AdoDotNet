@@ -22,10 +22,14 @@ const SignUp = (props) => {
     const handleSubmit  = () => {
         const provInfo={email:email,password:password};
         providerSvc.signIn(provInfo).then((provider)=>{
+            if(provider.status===401) {
+                setErrorMsg(provider.title);
+                return;
+            }
             console.log(provider);
             onChangeProvider(provider);  
         }, (error) => {
-            setErrorMsg(error.error!==undefined?error.error:error);
+            setErrorMsg(!error.error?error:error.error);
         });
     };
     const Error= (props) => {
@@ -57,7 +61,7 @@ const SignUp = (props) => {
             <div className="footer">
                 <button onClick={handleSubmit} type="submit" className="btn">Sign in</button>
             </div>
-            <Error message={errorMsg} />
+            <Error errorMsg={errorMsg} />
         </div>
 
     );
