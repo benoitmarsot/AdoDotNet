@@ -1,5 +1,4 @@
 import React, {useState,setState,useEffect} from 'react';
-import SelectUSState from 'react-select-us-states'
 import providerSvc from '../services/provider.js';
 
 import './signup.css';
@@ -27,7 +26,7 @@ const SignUp = (props) => {
                 return;
             }
             console.log(provider);
-            onChangeProvider(provider);  
+            onChangeProvider(provider); 
         }, (error) => {
             setErrorMsg(!error.error?error:error.error);
         });

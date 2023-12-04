@@ -64,7 +64,7 @@ public class ProviderRepositoryImpl : IProviderRepository {
             ) {
                 Parameters = {
                     new( "providerId", providerId ),
-                    new( "pjson", json)
+                    new( "patient", json)
                 }
             };
             using var reader = await cmd.ExecuteReaderAsync();

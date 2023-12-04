@@ -1,17 +1,17 @@
-import React, {useState,setState} from 'react';
+import React, {useState,setState,useContext} from 'react';
 import SelectUSState from 'react-select-us-states'
 import patientSvc from '../services/patient.js';
-
+import { PatientContext } from '../App.jsx';
 import './UpdatePatient.css';
 
 const UpdatePatient = (props) => {
+    const {patient} = useContext(PatientContext);
     if(!props||!props.providerid) {
         return <div>Error: no provider</div>;
     }
-    if(!props.patient) {
+    if(!patient) {
         return <div>Error: no patient</div>;
     }
-    const patient=props.patient;
     const providerId=props.providerid;
     const patientId=patient.patientId;
     const [firstName, setFirstName] = useState(patient.firstName||'');
