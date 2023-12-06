@@ -49,7 +49,7 @@ public class ProviderController : ControllerBase {
         return Ok(newPatientId);
     }
     //Update provider info
-    [HttpPut("update")] 
+    [HttpPost("updateprovider")] 
     public async Task<ActionResult<int>> UpdateProvider(
                Provider provider
            ) {

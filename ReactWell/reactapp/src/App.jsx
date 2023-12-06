@@ -1,7 +1,7 @@
 import React, { useState, setState, useEffect, createContext } from 'react';
 import './App.css';
 import Navbar from './components/Navbar';
-import { BrowserRouter as Router, Routes, Route, useNavigate as navigate} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './pages/index.jsx';
 import About from './pages/about.jsx';
 import CreatePatient from './pages/createPatient.jsx';
@@ -27,25 +27,14 @@ function App() {
     const changeProvider = (newProvider) => {
         setProvider(newProvider);
         console.log("changeProvider: ", newProvider);
-        //window.location.href='/selectpatient';
-        // if the provider has patients, then go to select patient else go to create patient
+        
     }
     const providerId=(provider)?provider.providerId:0;
     const patientId=(patient)?patient.patientId:0;
-    // useEffect(()=> {
-    //     if(providerId!=0) {
-    //         if(provider.patients) {
-    //             //use 
-    //             window.location.href='/selectpatient';
-    //         } else {
-    //             window.location.href='/createpatient';
-    //         }
-    //     }
-    // });
     return (
         <ProviderContext.Provider value={{provider,setProvider}}>
             <PatientContext.Provider value={{patient,setPatient}}>
-                <Router>
+                <Router basename="">
                     <Navbar  patientid={patientId} providerid={providerId} />
                     <Routes>
                         <Route path='/' element={<Home/>} />
@@ -54,7 +43,7 @@ function App() {
                         <Route path='/updatepatient' element={<UpdatePatient onChangePatient={changePatient} providerid={providerId}  />} /> //useContext(PatientContext)
                         <Route path='/Assesment' element={<Assesment providerid={providerId} patientid={patientId} />} />
                         <Route path='/selectpatient' element={<SelectPatient onChangePatient={changePatient} patientid={patientId} />} /> //useContext(ProviderContext)
-                        <Route path='/profile' element={<Profile />} />  //useContext(ProviderContext)
+                        <Route path='/profile' element={<Profile onChangeProvider={changeProvider} />} />  //useContext(ProviderContext)
                         <Route path='/sign-up' element={<SignUp onChangeProvider={changeProvider} />} />
                         <Route path='/signin' element={<SignIn onChangeProvider={changeProvider} />} />
                     </Routes>

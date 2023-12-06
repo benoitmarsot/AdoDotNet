@@ -1,9 +1,11 @@
 import React, {useState,setState,useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import providerSvc from '../services/provider.js';
 
 import './signup.css';
 
 const SignUp = (props) => {
+    const navigate=useNavigate();
     const [email, setEmail] = useState(null);
     const [password,setPassword] = useState(null);
     const [errorMsg,setErrorMsg] = useState(null);
@@ -27,6 +29,11 @@ const SignUp = (props) => {
             }
             console.log(provider);
             onChangeProvider(provider); 
+            if(provider.patients) {
+                return navigate('/selectpatient');
+            } else {
+                return navigate('/createpatient');
+            }
         }, (error) => {
             setErrorMsg(!error.error?error:error.error);
         });

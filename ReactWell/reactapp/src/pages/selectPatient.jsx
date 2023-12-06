@@ -4,7 +4,7 @@ import { ProviderContext } from '../App.jsx';
 
 const SelectPatient = (props) => {
     const {provider} = useContext(ProviderContext);
-
+    console.log("slectPatient: ",provider);
     const error=!provider?"No Provider":
             !provider.patients?"No clients":'';
     if(error) {
