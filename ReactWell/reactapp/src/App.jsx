@@ -11,6 +11,7 @@ import SelectPatient from './pages/selectPatient.jsx';
 import Profile from './pages/profile.jsx';
 import SignUp from './pages/signup.jsx';
 import SignIn from './pages/signIn.jsx';
+import SignOut from './pages/signout.jsx';
 
 const ProviderContext =createContext(null);
 const PatientContext =createContext(null);
@@ -29,6 +30,10 @@ function App() {
         console.log("changeProvider: ", newProvider);
         
     }
+    const signOut = () => {
+        setProvider(null);
+        setPatient(null);
+    }
     const providerId=(provider)?provider.providerId:0;
     const patientId=(patient)?patient.patientId:0;
     return (
@@ -46,6 +51,7 @@ function App() {
                         <Route path='/profile' element={<Profile onChangeProvider={changeProvider} />} />  //useContext(ProviderContext)
                         <Route path='/sign-up' element={<SignUp onChangeProvider={changeProvider} />} />
                         <Route path='/signin' element={<SignIn onChangeProvider={changeProvider} />} />
+                        <Route path='/signout' element={<SignOut onSignOut={signOut} />} />
                     </Routes>
                 </Router>
             </PatientContext.Provider>

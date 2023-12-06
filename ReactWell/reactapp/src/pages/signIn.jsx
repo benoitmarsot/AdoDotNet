@@ -29,7 +29,7 @@ const SignUp = (props) => {
             }
             console.log(provider);
             onChangeProvider(provider); 
-            if(provider.patients) {
+            if(provider.patients.length) {
                 return navigate('/selectpatient');
             } else {
                 return navigate('/createpatient');

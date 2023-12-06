@@ -40,15 +40,26 @@ const Navbar = (props) => {
 								Profile
 							</NavLink>
 						</>
-						):''
+						):(
+						<NavLink to='/sign-up' activestyle="true">
+							Sign Up
+						</NavLink>
+						)
 					}
-					<NavLink to='/sign-up' activestyle="true">
-						Sign Up
-					</NavLink>
 				</NavMenu>
-				<NavBtn>
-					<NavBtnLink to='/signin'>Sign In</NavBtnLink>
-				</NavBtn>
+				{providerId? (
+					<>
+						<NavBtn>
+							<NavBtnLink to='/signout'>Sign Out</NavBtnLink>
+						</NavBtn>
+					</>
+				):(
+					<>
+						<NavBtn>
+							<NavBtnLink to='/signin'>Sign In</NavBtnLink>
+						</NavBtn>
+					</>
+				)}
 			</Nav>
 		</>
     );
