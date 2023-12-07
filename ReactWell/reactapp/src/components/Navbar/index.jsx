@@ -58,6 +58,9 @@ const Navbar = (props) => {
 						<NavBtn>
 							<NavBtnLink to='/signin'>Sign In</NavBtnLink>
 						</NavBtn>
+						<NavBtn>
+							<NavBtnLink to='/signinpatient'>Patient portal</NavBtnLink>
+						</NavBtn>
 					</>
 				)}
 			</Nav>

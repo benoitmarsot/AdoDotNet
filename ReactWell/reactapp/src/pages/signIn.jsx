@@ -20,7 +20,8 @@ const SignUp = (props) => {
         }
     };
 
-    const handleSubmit  = () => {
+    const handleSubmit  = (e) => {
+        e.preventDefault();
         const provInfo={email:email,password:password};
         providerSvc.signIn(provInfo).then((provider)=>{
             if(provider.status===401) {
@@ -46,27 +47,29 @@ const SignUp = (props) => {
 
     return (
         <div className="form">
-            <div className="form-body">
-                <div className="row">
-                  <div className="col-25">
-                    <label htmlFor="email">Email</label>
-                  </div>
-                  <div className="col-75">
-                    <input type="text" id="email" name="email" placeholder="email.." onChange={handleInputChange}/>
-                  </div>
+            <form onSubmit={handleSubmit}>
+                <div className="form-body">
+                    <div className="row">
+                    <div className="col-25">
+                        <label htmlFor="email">Email</label>
+                    </div>
+                    <div className="col-75">
+                        <input type="text" id="email" name="email" placeholder="email.." onChange={handleInputChange}/>
+                    </div>
+                    </div>
+                    <div className="row">
+                    <div className="col-25">
+                        <label htmlFor="password">Password</label>
+                    </div>
+                    <div className="col-75">
+                        <input type="password"  id="password" name="password" placeholder="Password.." onChange={handleInputChange} />
+                    </div>
+                    </div>
                 </div>
-                <div className="row">
-                  <div className="col-25">
-                    <label htmlFor="password">Password</label>
-                  </div>
-                  <div className="col-75">
-                    <input type="password"  id="password" name="password" placeholder="Password.." onChange={handleInputChange} />
-                  </div>
+                <div className="footer">
+                    <button type="submit" className="btn">Sign in</button>
                 </div>
-            </div>
-            <div className="footer">
-                <button onClick={handleSubmit} type="submit" className="btn">Sign in</button>
-            </div>
+            </form>
             <Error errorMsg={errorMsg} />
         </div>
 

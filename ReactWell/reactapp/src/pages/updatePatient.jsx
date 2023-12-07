@@ -24,7 +24,7 @@ const UpdatePatient = (props) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [validate, setValidate] = useState({});
-
+    let pInfo={};
     const handleInputChange = (e) => {
         const {id , value} = e.target;
         if(id === "firstName"){
@@ -63,7 +63,7 @@ const UpdatePatient = (props) => {
             return;
         }
         
-        const pInfo={firstName:firstName,lastName:lastName,
+        pInfo={firstName:firstName,lastName:lastName,
             address:address,city:city,usState:usState,zip:zip,
             referral:referral
         };
@@ -73,6 +73,7 @@ const UpdatePatient = (props) => {
         
         patientSvc.updatePatient(patientId,pInfo).then((el)=>{
             console.log(el);
+            props.onChangePatient(pInfo);
         });
     }
 
