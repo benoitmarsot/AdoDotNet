@@ -1,10 +1,10 @@
-import React, {useState,setState,useEffect} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import providerSvc from '../services/provider.js';
 
 import './signup.css';
 
-const SignUp = (props) => {
+const SignIn = (props) => {
     const navigate=useNavigate();
     const [email, setEmail] = useState(null);
     const [password,setPassword] = useState(null);
@@ -76,4 +76,4 @@ const SignUp = (props) => {
     );
 };
 
-export default SignUp;
+export default SignIn;

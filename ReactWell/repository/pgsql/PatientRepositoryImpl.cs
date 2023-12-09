@@ -54,5 +54,25 @@ public class PatientRepositoryImpl : IPatientRepository {
             return pidOut;
         }
     }
+    public async Task<Patient?> Signin(Credential credential) {
+        string json = JsonSerializer.Serialize(credential);
+        using (var connect = new NpgsqlConnection(_connStr.SQLString)) {
+            connect.Open();
+
+            await using var cmd = new NpgsqlCommand("select public.patientsignin(@cred::json);", connect) {
+                Parameters = {
+                    new("cred", json)
+                }
+            };
+            using var reader = await cmd.ExecuteReaderAsync();
+            await reader.ReadAsync();
+            Patient? patient = null;
+            string? jsonOut = reader["patientsignin"] as string;
+            if (jsonOut != null) {
+                patient = JsonSerializer.Deserialize<Patient>(jsonOut);
+            }
+            return patient;
+        }
+    }
 
 }

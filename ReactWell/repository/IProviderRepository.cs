@@ -13,4 +13,5 @@ public interface IProviderRepository {
     Task<Provider?> Signin(Credential credential);
     Task<int?> RegisterPatient(int providerId, Patient patient);
     Task<int?> UpdateProvider(Provider provider);
+    Task<Provider?> GetProvider(int providerId);
 }

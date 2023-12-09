@@ -21,6 +21,16 @@ public class PatientController : ControllerBase {
     ) {
         int? pid=await _patientRep.UpdatePatient(patientId,patient);  
         return Ok(pid);
-
+    }
+    [HttpPost("signin")]
+    //[ValidateAntiForgeryToken]  :to look at
+    public async Task<ActionResult<Provider>> Signin(
+        Credential credential
+    ) {
+        Patient? patient = await _patientRep.Signin(credential);
+        if(patient == null) {
+            return Unauthorized();
+        }
+        return Ok(patient);
     }
 }

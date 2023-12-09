@@ -65,7 +65,8 @@ const UpdatePatient = (props) => {
         
         pInfo={firstName:firstName,lastName:lastName,
             address:address,city:city,usState:usState,zip:zip,
-            referral:referral
+            referral:referral,patientId:patient.patientId,
+            rwuserId:patient.rwuserId
         };
         if(password) {
             pInfo.password=password;

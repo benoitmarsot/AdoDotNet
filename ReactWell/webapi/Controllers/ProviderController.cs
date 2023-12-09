@@ -18,9 +18,9 @@ public class ProviderController : ControllerBase {
     }
     [HttpPut("assessment")]
     public async Task<ActionResult<int>> PutAssessment(
-        int providerId, int patitientId, Assessment assessment
+        int providerId, int patientId, Assessment assessment
     ) {
-        int? assessmentVersion = await _providerRep.SaveAssessment(providerId, patitientId, assessment);
+        int? assessmentVersion = await _providerRep.SaveAssessment(providerId, patientId, assessment);
         return Ok(assessmentVersion);
     }
     [HttpPost("register")]
@@ -55,6 +55,11 @@ public class ProviderController : ControllerBase {
            ) {
         int? providerId = await _providerRep.UpdateProvider(provider);
         return Ok(providerId);
+    }
+    [HttpGet("getprovider")]
+    public async Task<ActionResult<Patient>> GetPatient(int providerId) {
+        Provider? p = await _providerRep.GetProvider(providerId);
+        return Ok(p);
     }
 
 }

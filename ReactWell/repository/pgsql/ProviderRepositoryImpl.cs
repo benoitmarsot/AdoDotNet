@@ -80,17 +80,17 @@ public class ProviderRepositoryImpl : IProviderRepository {
             connect.Open();
 
             await using var cmd = new NpgsqlCommand(
-                "call public.saveassessment(@providerId,@patientId,@assessjson::json)", connect
+                "call public.saveassessment(@provid,@pid,@jsonassess::json)", connect
             ) {
                 Parameters = {
-                    new( "providerId", providerId ),
-                    new( "patientId", patientId ),
-                    new( "assessjson", json)
+                    new( "provid", providerId ),
+                    new( "pid", patientId ),
+                    new( "jsonassess", json)
                 }
             };
             using var reader = await cmd.ExecuteReaderAsync();
             await reader.ReadAsync();
-            int? pid = reader["pid"] as int?;
+            int? pid = reader["assessversionid"] as int?;
             return pid;
         }
     }
@@ -133,5 +133,25 @@ public class ProviderRepositoryImpl : IProviderRepository {
             int? provid = reader["provid"] as int?;
             return provid;
         }
+    }
+    public async Task<Provider?> GetProvider(int providerId) {
+        Provider? provider = null;
+        using (var connect = new NpgsqlConnection(_connStr.SQLString)) {
+            connect.Open();
+
+            await using var cmd = new NpgsqlCommand("select public.getprovider(@p);", connect) {
+                Parameters = {
+                    new( "p", providerId )
+                }
+            };
+
+            using var reader = await cmd.ExecuteReaderAsync();
+            await reader.ReadAsync();
+            string? json = reader["getprovider"] as string;
+            if (json != null) {
+                provider = JsonSerializer.Deserialize<Provider>(json);
+            }
+        }
+        return provider;
     }
 }

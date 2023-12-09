@@ -11,7 +11,7 @@ import {
 const Navbar = (props) => {
 	const providerId=props.providerid;
 	const patientId=props.patientid;
-	
+	const isPatientPortal=props.isPatientPortal;
     return (
 		<>
 			<Nav>
@@ -20,34 +20,49 @@ const Navbar = (props) => {
 					<NavLink to='/about' activestyle="true">
 						About
 					</NavLink>
-					{providerId? (
-						<>
-							<NavLink to='/createpatient' activestyle="true">
-								Register patient
-							</NavLink>
-							<NavLink to='/selectpatient' activestyle="true">
-								Select patient
-							</NavLink>
-							{patientId? ( <>
-								<NavLink to='/updatepatient' activestyle="true">
-									Update patient
+					{!isPatientPortal ? (
+						providerId ? (
+							<>
+								<NavLink to='/createpatient' activestyle="true">
+									Register patient
 								</NavLink>
+								<NavLink to='/selectpatient' activestyle="true">
+									Select patient
+								</NavLink>
+								{patientId? ( <>
+									<NavLink to='/updatepatient' activestyle="true">
+										Update patient
+									</NavLink>
+									<NavLink to='/assesment' activestyle="true">
+										Assesment
+									</NavLink>
+								</>):''}
+								<NavLink to='/profile' activestyle="true">
+									Profile
+								</NavLink>
+							</>
+						):(
+							<NavLink to='/sign-up' activestyle="true">
+								Sign Up
+							</NavLink>
+							)
+					):(
+						patientId? (
+							<>
 								<NavLink to='/assesment' activestyle="true">
 									Assesment
 								</NavLink>
-							</>):''}
-							<NavLink to='/profile' activestyle="true">
-								Profile
-							</NavLink>
-						</>
-						):(
-						<NavLink to='/sign-up' activestyle="true">
-							Sign Up
-						</NavLink>
-						)
-					}
+								<NavLink to='/updatepatient' activestyle="true">
+									Profile
+								</NavLink>
+								<NavLink to='/selectprovider' activestyle="true">
+									Select provider
+								</NavLink>
+							</>
+						):""
+					)}
 				</NavMenu>
-				{providerId? (
+				{(providerId||patientId)? (
 					<>
 						<NavBtn>
 							<NavBtnLink to='/signout'>Sign Out</NavBtnLink>
