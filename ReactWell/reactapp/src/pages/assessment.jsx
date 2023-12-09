@@ -10,6 +10,7 @@ class Assessment extends React.Component {
             mousePos:{},
             bulletId:0,
             texts:[],
+            note:'',
             saved:false,
             currentIndex: 0
         };
@@ -63,7 +64,7 @@ class Assessment extends React.Component {
         }
         //Should add a note field
         const assessDoc={'assessmentId':0,'providerId':this.providerId,'patientId':this.patientId,
-            'assessmentVersions':[{'assessmentVersionId':0,'note':'firstNote'}],
+            'assessmentVersions':[{'assessmentVersionId':0,'note':this.state.note}],
             'bodyQuestions': bodyQuestions
         };
         return assessDoc;
@@ -75,7 +76,7 @@ class Assessment extends React.Component {
             if(!assDoc.bodyQuestions) {
                 return;
             }
-            this.currentIndex=assDoc.bodyQuestions.length-1;
+            this.currentIndex=assDoc.assessmentVersions.length-1;
             assDoc.bodyQuestions.forEach((bq)=>{
                 const vId=(bq.versionTexts)?bq.versionTexts[0].assessmentVersionId:0;
 
@@ -89,6 +90,7 @@ class Assessment extends React.Component {
                 saved:true, 
                 bulletId:assDoc.bodyQuestions.length,
                 texts:lTexts,
+                note:assDoc.assessmentVersions[this.currentIndex].note,
                 currentIndex: this.currentIndex
             });
             this.showQuestions();
@@ -115,7 +117,7 @@ class Assessment extends React.Component {
         function navigate(events) {
             const dir=events.target.name;
             const nv=parseInt(self.state.currentIndex)+parseInt(dir);
-            if(nv<0||nv>=self.assessmentDoc.bodyQuestions.length) {
+            if(nv<0||nv>=self.assessmentDoc.assessmentVersions.length) {
                 return ;
             }
             const maxVersion=self.assessmentDoc.assessmentVersions[nv].assessmentVersionId;
@@ -145,14 +147,24 @@ class Assessment extends React.Component {
                     };
                 }
             });
-            self.setState({currentIndex:nv,texts:lTexts});
+            self.setState({currentIndex:nv,texts:lTexts,note:self.assessmentDoc.assessmentVersions[nv].note});
         }
         const label=props.direction>0?'Next':'previous';
         return (
             <button onClick={navigate} name={props.direction}>{label}</button>
         );
     }
-    
+    showVersionNotes(props) {
+        const self=this;
+        const text=props.text;
+        function handleDiaChanges(event) {
+            self.state.note=event.target.value;
+            self.setState({saved:false,note:self.state.note});
+        };
+        return (
+            <textarea placeholder='Visit notes' rows='5' width='40' value={text} onChange={handleDiaChanges} />
+        );
+    }
     DiagnosesQ(props) {
         const self=this;
         function handleDiaChanges(event) {
@@ -231,7 +243,10 @@ class Assessment extends React.Component {
                 <br/>
                 <table>
                     <tbody>
-                        <tr><td>
+                    <tr>
+                        <td>{this.showVersionNotes({text:this.state.note})}</td><td></td>
+                    </tr><tr>
+                        <td>
                             <canvas id='myCanvas' 
                                 width='516' height='507'
                                 onMouseMove={this.handleMove} onClick={this.handleClick}
