@@ -91,6 +91,7 @@ class Assessment extends React.Component {
                 bulletId:assDoc.bodyQuestions.length,
                 texts:lTexts,
                 note:assDoc.assessmentVersions[this.currentIndex].note,
+                noteDate:assDoc.assessmentVersions[this.currentIndex].serviceDate,
                 currentIndex: this.currentIndex
             });
             this.showQuestions();
@@ -147,7 +148,9 @@ class Assessment extends React.Component {
                     };
                 }
             });
-            self.setState({currentIndex:nv,texts:lTexts,note:self.assessmentDoc.assessmentVersions[nv].note});
+            self.setState({currentIndex:nv,texts:lTexts,note:self.assessmentDoc.assessmentVersions[nv].note,
+                noteDate:self.assessmentDoc.assessmentVersions[nv].serviceDate});
+                
         }
         const label=props.direction>0?'Next':'previous';
         return (
@@ -235,7 +238,7 @@ class Assessment extends React.Component {
         return this.providerId?(
             <div>
                 <h1>Health Questionnaire</h1>
-                {this.Goto({direction:-1})}{this.Goto({direction:1})} {this.assessmentDoc?this.assessmentDoc.assessmentVersions[this.currentIndex].serviceDate:''}
+                {this.Goto({direction:-1})}{this.Goto({direction:1})} {this.state.noteDate}
                 {/* The mouse is at position{' '}
                 <b>
                   {(Math.round( this.state.mousePos.x * 100) / 100).toFixed(2)},{(Math.round( this.state.mousePos.y * 100) / 100).toFixed(2)}
